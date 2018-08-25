@@ -1,0 +1,22 @@
+{
+  "name": "automata-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/inquirer": "0.0.43",
+    "@types/node": "^10.9.2",
+    "ts-loader": "^4.5.0",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "inquirer": "^6.2.0"
+  }
+}
