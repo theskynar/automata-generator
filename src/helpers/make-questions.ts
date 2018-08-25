@@ -1,5 +1,6 @@
 import * as inquirer from "inquirer";
 import { automataOptions } from "../config/automata-options";
+import { IAutomataStateMapping } from "../types/automata-state-mapping";
 
 
 /**
@@ -22,6 +23,7 @@ class MakeQuestionsHelper {
       automataOptions.initialState = await this.askForInitialState();
       automataOptions.finalStateCount = await this.askForFinalStateCount();
       automataOptions.finalStates = await this.askForFinalStates(automataOptions.finalStateCount);
+      automataOptions.stateMapping = await this.askForStateMapping(automataOptions.stateCount, automataOptions.symbolList);
     } catch (e) {
       console.error(e);
     }
@@ -146,6 +148,38 @@ class MakeQuestionsHelper {
         }) as any;
 
       result.push(parseInt(finalState));
+    }
+
+    return result;
+  }
+
+  /**
+   * Ask for transition table.
+   * 
+   * @private
+   * @param {number} stateCount 
+   * @param {string[]} symbolList 
+   * @returns 
+   * @memberof MakeQuestionsHelper
+   */
+  private async askForStateMapping(stateCount: number, symbolList: string[]) {
+    const result: Array<IAutomataStateMapping[]> = [];
+
+    for (let i = 0; i < stateCount; i++) {
+      const mappings: IAutomataStateMapping[] = [];
+
+      for (let symbol of symbolList) {
+        const { state } = await inquirer.prompt({
+          message: `Para o estado E${i} e o símbolo ${symbol}, qual o próximo estado?`,
+          type: "input",
+          name: "state",
+          validate: input => !isNaN(parseInt(input))
+        }) as any;
+        
+        mappings.push({ symbol, state });
+      }
+
+      result.push(mappings);
     }
 
     return result;

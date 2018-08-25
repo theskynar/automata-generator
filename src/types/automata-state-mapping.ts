@@ -1,4 +1,4 @@
 export interface IAutomataStateMapping {
-  symbol: string;
-  state: number;
+  symbol?: string;
+  state?: number;
 }
