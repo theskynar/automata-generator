@@ -1,6 +1,8 @@
 import { IAutomataStateMapping } from "../types/automata-state-mapping";
+import { Template } from "../types/template-type";
 
 class AutomataOptions {
+  public templateType: Template = Template.GoTo;
   public symbolCount: number = 3;
   public symbolList: string[] = ['a', 'b', 'c'];
   public stateCount: number = 3;

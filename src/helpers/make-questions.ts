@@ -1,6 +1,7 @@
 import * as inquirer from "inquirer";
 import { automataOptions } from "../config/automata-options";
 import { IAutomataStateMapping } from "../types/automata-state-mapping";
+import { Template } from "../types/template-type";
 
 
 /**
@@ -24,6 +25,7 @@ class MakeQuestionsHelper {
       automataOptions.finalStateCount = await this.askForFinalStateCount();
       automataOptions.finalStates = await this.askForFinalStates(automataOptions.finalStateCount);
       automataOptions.stateMapping = await this.askForStateMapping(automataOptions.stateCount, automataOptions.symbolList);
+      automataOptions.templateType = await this.askForTemplateType();
     } catch (e) {
       console.error(e);
     }
@@ -183,6 +185,25 @@ class MakeQuestionsHelper {
     }
 
     return result;
+  }
+
+  /**
+   * Ask for template type to be generated.
+   *
+   * @private
+   * @returns
+   * @memberof MakeQuestionsHelper
+   */
+  private async askForTemplateType() {
+    const { templateType } = await inquirer.prompt<{ templateType: Template }>({
+      message: "Qual o tipo de saída gostaria de gerar?",
+      type: "list",
+      name: "templateType",
+      choices: [Template.GoTo, Template.Function],
+      validate: input => !!input
+    });
+      
+    return templateType;
   }
 }
 
