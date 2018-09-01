@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 char m[80];
-int i = 0;
+int i = -1;
 
 void aceita();
 void rejeita();

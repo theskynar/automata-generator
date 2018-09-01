@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "tsc && node dist/index.js",
     "dev": "tsc -w",
-    "build": "tsc"
+    "build": "tsc",
+    "compile-function": "gcc output/function.c -o output/function",
+    "compile-goto": "gcc output/goto.c -o output/goto",
+    "run-function": "./output/function",
+    "run-goto": "./output/function"
   },
   "author": "",
   "license": "ISC",

@@ -177,8 +177,10 @@ class MakeQuestionsHelper {
           name: "state",
           validate: input => !isNaN(parseInt(input))
         }) as any;
-        
-        mappings.push({ symbol, state });
+
+        if (state >= 0) {
+          mappings.push({ symbol, state });
+        }
       }
 
       result.push(mappings);

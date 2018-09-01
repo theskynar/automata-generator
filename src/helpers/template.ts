@@ -20,7 +20,7 @@ class TemplateHelper {
      * @memberof TemplateHelper
      */
     private openTemplate(type: Template) {
-        const filePath = path.join(__dirname, `../../templates/${type}.cpp`);
+        const filePath = path.join(__dirname, `../../templates/${type}.c`);
         const template = fs.readFileSync(filePath, { encoding: "utf-8" });
 
         return template;
@@ -114,7 +114,7 @@ ${implementation}`
         file = file.replace("<% head %>", templateGenerated.head || "");
         file = file.replace("<% main %>", templateGenerated.main || "");
 
-        const outputPath = path.join(process.cwd(), `/output/${automataOptions.templateType}.cpp`);
+        const outputPath = path.join(process.cwd(), `/output/${automataOptions.templateType}.c`);
         fs.writeFileSync(outputPath, file, { encoding: "utf-8" });
     }
 }
