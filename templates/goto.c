@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-    int i = -1;
+    int i = 0;
     char m[80];
 
     gets(m);

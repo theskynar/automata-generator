@@ -44,17 +44,30 @@ class TemplateHelper {
             .map((state, index) => `
 
 void E${index}() {
-    i++;
-    ${state.map(mapping => `
-    if (m[i] == '${mapping.symbol}') {
+    ${state.map((mapping, mapIndex) => `
+    ${mapIndex === 0 ? `if (m[i] == '${mapping.symbol}') 
+    {
+        i++;
         E${mapping.state}();
         return;
-    }
+    }` : `else
+        if (m[i] == '${mapping.symbol}') 
+        {
+            i++;
+            E${mapping.state}();
+            return;
+        }`}
     `).join("")} ${isFinalState(index) ? `
-    if (m[i] == '\\0') {
+    ${state.length === 0 ? `if (m[i] == '\\0') 
+    {
         aceita();
         return;
-    }
+    }` : `else
+        if (m[i] == '\\0') 
+        {
+            aceita();
+            return;
+        }`}
     ` : ``}
     rejeita();
 }`).join("");
@@ -77,15 +90,30 @@ void E${index}() {
         const implementation = automataOptions.stateMapping
             .map((state, index) => `
 E${index}:
-    i++;
-    ${state.map(mapping => `
-    if (m[i] == '${mapping.symbol}') {
+    ${state.map((mapping, mapIndex) => `
+    ${mapIndex === 0 ? `if (m[i] == '${mapping.symbol}') 
+    {
+        i++;
         goto E${mapping.state};
-    }
+        return;
+    }` : `else
+        if (m[i] == '${mapping.symbol}') 
+        {
+            i++;
+            goto E${mapping.state};
+            return;
+        }`}
     `).join("")} ${isFinalState(index) ? `
-    if (m[i] == '\\0') {
+    ${state.length === 0 ? `if (m[i] == '\\0') 
+    {
         goto aceita;
-    }
+        return;
+    }` : `else
+        if (m[i] == '\\0') 
+        {
+            goto aceita;
+            return;
+        }`}
     ` : ``}
     goto rejeita;
 `).join("");

@@ -1,22 +1,25 @@
 #include <stdio.h>
 
 char m[80];
-int i = -1;
+int i = 0;
 
 void aceita();
 void rejeita();
 
 <% head %>
 
-void rejeita() {
+void rejeita() 
+{
     printf("Rejeita");
 }
 
-void aceita() {
+void aceita() 
+{
     printf("Aceita");
 }
 
-int main() {
+int main() 
+{
     gets(m);
     <% main %>
 
